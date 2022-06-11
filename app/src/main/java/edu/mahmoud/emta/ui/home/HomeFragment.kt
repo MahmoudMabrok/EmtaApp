@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import edu.mahmoud.emta.R
 import edu.mahmoud.emta.data.EmtaDataBase
-import java.util.concurrent.Executors
+import edu.mahmoud.emta.ui.emtaControl.EmtaControlFragment
 
 
 class HomeFragment : Fragment() {
@@ -17,9 +20,8 @@ class HomeFragment : Fragment() {
         EmtaDataBase.createDb(requireContext()).emtaDto()
     }
 
-    private val executor = Executors.newSingleThreadExecutor()
+    private val adapter by lazy { EmtaListAdapter(onCLick = ::onItemClicked) }
 
-    private val adapter by lazy { EmtaListAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,11 +37,31 @@ class HomeFragment : Fragment() {
 
         val rv = view.findViewById<RecyclerView>(R.id.rvList)
         rv.adapter = adapter
-        
+        rv.addItemDecoration(
+            DividerItemDecoration(
+                requireContext(),
+                DividerItemDecoration.VERTICAL
+            )
+        )
+
+        val tvNonContent = view.findViewById<View>(R.id.tvNonContent)
         dto.listAll().observe(viewLifecycleOwner) {
             adapter.updateList(it)
+            tvNonContent.isVisible = it.isEmpty()
         }
 
+        view.findViewById<FloatingActionButton>(R.id.fabAdd).setOnClickListener {
+            onItemClicked(-1)
+        }
+
+    }
+
+    private fun onItemClicked(id: Long) {
+        requireActivity().supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.container, EmtaControlFragment.createInstance(id))
+            .addToBackStack("")
+            .commit()
     }
 
 

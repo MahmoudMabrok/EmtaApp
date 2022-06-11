@@ -15,4 +15,10 @@ interface EmtaDAO {
     @Query("select * from emta")
     fun listAll(): LiveData<List<EmtaItem>>
 
+    @Query("select * from emta where id = :id")
+    fun getEmtaById(id: Long): EmtaItem
+
+    @Delete
+    fun deleteEmta(it: EmtaItem)
+
 }
