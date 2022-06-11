@@ -6,19 +6,19 @@ import java.util.*
 object DateOperation {
 
 
+
     /**
      * string date like "20 8 1996" returns it as Date object
      */
     fun strToDate(strDate: String): Date? {
-        val parts = strDate.trim().split(" ")
-        if (parts.size != 3)
-            return null
-
-        val cal = Calendar.getInstance()
-        cal.set(parts[2].toInt(), parts[1].toInt() - 1, parts[1].toInt())
-
-        return cal.time
+        val dateFormat = SimpleDateFormat("dd MM yyyy")
+        return try {
+            dateFormat.parse(strDate)
+        } catch (e: Exception) {
+            null
+        }
     }
+
 
     /**
      * string date like "20 8 1996" returns it as Date object

@@ -58,8 +58,25 @@ class EmtaControlFragment private constructor() : Fragment() {
 
         btnAdd.setOnClickListener {
             val title = edTitle.text.toString()
+
+            if (title.isBlank()) {
+                edTitle.error = "Please add title"
+                return@setOnClickListener
+            }
+
             val date = edDate.text.toString()
+            if (date.isBlank()) {
+                edDate.error = "Please add Date"
+                return@setOnClickListener
+            }
+
             val dateObject = DateOperation.strToDate(date)?.time ?: 0
+
+            if (dateObject == 0L) {
+                edDate.error = "Please add a valid date"
+                return@setOnClickListener
+            }
+
             executor.execute {
                 dto.insert(EmtaItem(title, dateObject))
                 goBack()
@@ -67,9 +84,27 @@ class EmtaControlFragment private constructor() : Fragment() {
         }
 
         btnUpdate.setOnClickListener {
+
             val title = edTitle.text.toString()
+            if (title.isBlank()) {
+                edTitle.error = "Please add title"
+                return@setOnClickListener
+            }
+
             val date = edDate.text.toString()
+            if (date.isBlank()) {
+                edDate.error = "Please add Date"
+                return@setOnClickListener
+            }
+
             val dateObject = DateOperation.strToDate(date)?.time ?: 0
+
+            if (dateObject == 0L) {
+                edDate.error = "Please add a valid date"
+                return@setOnClickListener
+            }
+
+
             emta?.let {
                 it.title = title
                 it.dateMillis = dateObject
