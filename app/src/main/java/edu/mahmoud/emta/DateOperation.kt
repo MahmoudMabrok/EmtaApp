@@ -36,7 +36,7 @@ object DateOperation {
 
     fun getDifferenceTillNow(date: Date) = differenceBetweenDatesInDays(getCurrentDate(), date)
 
-    private fun getCurrentDate(): Date {
+    fun getCurrentDate(): Date {
         return Calendar.getInstance().time
     }
 

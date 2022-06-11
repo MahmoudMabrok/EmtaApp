@@ -8,18 +8,16 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import edu.mahmoud.emta.R
 import edu.mahmoud.emta.data.EmtaDataBase
-import edu.mahmoud.emta.data.EmtaItem
 import java.util.concurrent.Executors
 
 
 class HomeFragment : Fragment() {
 
-
     private val dto by lazy {
         EmtaDataBase.createDb(requireContext()).emtaDto()
     }
 
-    private val exceuter = Executors.newSingleThreadExecutor()
+    private val executor = Executors.newSingleThreadExecutor()
 
     private val adapter by lazy { EmtaListAdapter() }
 
@@ -37,15 +35,9 @@ class HomeFragment : Fragment() {
 
         val rv = view.findViewById<RecyclerView>(R.id.rvList)
         rv.adapter = adapter
-
-        exceuter.execute {
-            dto.insert(EmtaItem("A"))
-        }
-
-        exceuter.execute {
-            dto.listAll().observe(viewLifecycleOwner) {
-                adapter.updateWordsCountList(it)
-            }
+        
+        dto.listAll().observe(viewLifecycleOwner) {
+            adapter.updateList(it)
         }
 
     }
