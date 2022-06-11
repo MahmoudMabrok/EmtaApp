@@ -18,7 +18,7 @@ class EmtaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val date = DateOperation.getDateFromMillis(data.dateMillis)
         tvRemaining.text = "${DateOperation.getDifferenceTillNow(date)}"
         tvDate.text = DateOperation.dateToString(date)
-        tvTitle.text = DateOperation.dateToString(date)
+        tvTitle.text = data.title
         Log.d("TestApp", "bind: $data")
     }
 }

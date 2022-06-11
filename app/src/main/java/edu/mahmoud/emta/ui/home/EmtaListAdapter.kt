@@ -10,7 +10,7 @@ import edu.mahmoud.emta.data.EmtaItem
 class EmtaListAdapter(private val list: MutableList<EmtaItem> = arrayListOf()) :
     RecyclerView.Adapter<EmtaViewHolder>() {
 
-    fun updateWordsCountList(newList: List<EmtaItem>) {
+    fun updateList(newList: List<EmtaItem>) {
         list.clear()
         list.addAll(newList)
         notifyDataSetChanged()
