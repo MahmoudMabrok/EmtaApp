@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class EmtaItem(
     var title: String,
     var dateMillis: Long,
-    var color: Int
+    var color: Int = 0
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0

@@ -1,5 +1,4 @@
 <resources>
     <string name="app_name">Emta</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="no_dates_added_yet">No Dates added yet…\n Use + button to add ones ^_^</string>
 </resources>

@@ -10,9 +10,18 @@ class DateOperationTest {
     @Test
     fun strToDate() {
         val dateString = "22 5 2022"
-        val actual = DateOperation.strToDate(dateString)
+        val actual = DateOperation.strToDate1(dateString)
         assertNotNull(actual)
     }
+
+
+    @Test
+    fun strToDate1() {
+        val dateString = "22 13 2022"
+        val actual = DateOperation.strToDate1(dateString)
+        assertNotNull(actual)
+    }
+
 
     @Test
     fun dateToString() {

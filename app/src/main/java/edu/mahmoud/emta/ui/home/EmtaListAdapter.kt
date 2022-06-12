@@ -7,7 +7,10 @@ import edu.mahmoud.emta.R
 import edu.mahmoud.emta.data.EmtaItem
 
 
-class EmtaListAdapter(private val list: MutableList<EmtaItem> = arrayListOf()) :
+class EmtaListAdapter(
+    private val list: MutableList<EmtaItem> = arrayListOf(),
+    val onCLick: (Long) -> Unit
+) :
     RecyclerView.Adapter<EmtaViewHolder>() {
 
     fun updateList(newList: List<EmtaItem>) {
@@ -19,7 +22,7 @@ class EmtaListAdapter(private val list: MutableList<EmtaItem> = arrayListOf()) :
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): EmtaViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.item_emta, viewGroup, false)
-        return EmtaViewHolder(view)
+        return EmtaViewHolder(view, onCLick)
     }
 
     override fun onBindViewHolder(holder: EmtaViewHolder, i: Int) {
